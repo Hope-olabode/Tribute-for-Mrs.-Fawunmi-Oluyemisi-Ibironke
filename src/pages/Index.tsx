@@ -26,7 +26,7 @@ const Index = () => {
             </p>
             
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-              [Honoree Name]
+              Mrs. Fawunmi Oluyemisi Ibironke
             </h1>
 
             <p className="text-xl md:text-2xl font-light text-primary-foreground/90 max-w-2xl mx-auto">

@@ -17,16 +17,34 @@ const tributeSchema = z.object({
   message: z.string().trim().min(1, "Message is required").max(2000, "Message must be less than 2000 characters"),
 });
 
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+const CHAR_LIMIT = 150;
+
 const Tributes = () => {
   const queryClient = useQueryClient();
-  const [formData, setFormData] = useState({
-    name: "",
-    relationship: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", relationship: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
-  // Fetch tributes
+  const toggleExpanded = (id: string) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
   const { data: tributes, isLoading } = useQuery({
     queryKey: ["tributes"],
     queryFn: async () => {
@@ -34,13 +52,11 @@ const Tributes = () => {
         .from("tributes")
         .select("*")
         .order("created_at", { ascending: false });
-
       if (error) throw error;
       return data;
     },
   });
 
-  // Submit tribute mutation
   const submitTribute = useMutation({
     mutationFn: async (tribute: { name: string; relationship?: string; message: string }) => {
       const { error } = await supabase.from("tributes").insert([tribute]);
@@ -50,50 +66,29 @@ const Tributes = () => {
       queryClient.invalidateQueries({ queryKey: ["tributes"] });
       setFormData({ name: "", relationship: "", message: "" });
       setErrors({});
-      toast({
-        title: "Thank you!",
-        description: "Your tribute has been submitted.",
-      });
+      toast({ title: "Thank you!", description: "Your tribute has been submitted." });
     },
     onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to submit your tribute. Please try again.",
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: "Failed to submit your tribute. Please try again.", variant: "destructive" });
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validate form data
     const result = tributeSchema.safeParse(formData);
-    
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.errors.forEach((error) => {
-        if (error.path[0]) {
-          fieldErrors[error.path[0] as string] = error.message;
-        }
+        if (error.path[0]) fieldErrors[error.path[0] as string] = error.message;
       });
       setErrors(fieldErrors);
       return;
     }
-    
     setErrors({});
     submitTribute.mutate({
       name: result.data.name,
       relationship: result.data.relationship || undefined,
       message: result.data.message,
-    });
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
     });
   };
 
@@ -136,9 +131,7 @@ const Tributes = () => {
                         placeholder="Enter your name"
                         className={errors.name ? "border-destructive" : ""}
                       />
-                      {errors.name && (
-                        <p className="text-sm text-destructive">{errors.name}</p>
-                      )}
+                      {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="relationship">Relationship (Optional)</Label>
@@ -149,9 +142,7 @@ const Tributes = () => {
                         placeholder="e.g., Former Student, Colleague"
                         className={errors.relationship ? "border-destructive" : ""}
                       />
-                      {errors.relationship && (
-                        <p className="text-sm text-destructive">{errors.relationship}</p>
-                      )}
+                      {errors.relationship && <p className="text-sm text-destructive">{errors.relationship}</p>}
                     </div>
                   </div>
 
@@ -164,9 +155,7 @@ const Tributes = () => {
                       placeholder="Share your memory, story, or tribute..."
                       className={`min-h-[150px] ${errors.message ? "border-destructive" : ""}`}
                     />
-                    {errors.message && (
-                      <p className="text-sm text-destructive">{errors.message}</p>
-                    )}
+                    {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                   </div>
 
                   <Button
@@ -194,12 +183,8 @@ const Tributes = () => {
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-3xl text-foreground mb-2">
-              Wall of Tributes
-            </h2>
-            <p className="text-muted-foreground">
-              Messages from those whose lives she touched
-            </p>
+            <h2 className="font-serif text-3xl text-foreground mb-2">Wall of Tributes</h2>
+            <p className="text-muted-foreground">Messages from those whose lives she touched</p>
           </div>
 
           {isLoading ? (
@@ -208,29 +193,44 @@ const Tributes = () => {
             </div>
           ) : tributes && tributes.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {tributes.map((tribute) => (
-                <Card key={tribute.id} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0">
-                        <Heart className="w-5 h-5 text-secondary" />
+              {tributes.map((tribute) => {
+                const isLong = tribute.message.length > CHAR_LIMIT;
+                const isExpanded = expandedIds.has(tribute.id);
+
+                return (
+                  <Card key={tribute.id} className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0">
+                          <Heart className="w-5 h-5 text-secondary" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground">{tribute.name}</p>
+                          {tribute.relationship && (
+                            <p className="text-sm text-secondary">{tribute.relationship}</p>
+                          )}
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-semibold text-foreground">{tribute.name}</p>
-                        {tribute.relationship && (
-                          <p className="text-sm text-secondary">{tribute.relationship}</p>
-                        )}
-                      </div>
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      "{tribute.message}"
-                    </p>
-                    <p className="text-xs text-muted-foreground/70">
-                      {formatDate(tribute.created_at)}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
+                      <p className="text-muted-foreground leading-relaxed mb-2">
+                        "{isExpanded || !isLong
+                          ? tribute.message
+                          : tribute.message.slice(0, CHAR_LIMIT) + "..."}"
+                      </p>
+                      {isLong && (
+                        <button
+                          onClick={() => toggleExpanded(tribute.id)}
+                          className="text-sm text-secondary hover:underline mb-3"
+                        >
+                          {isExpanded ? "Show less" : "Read more"}
+                        </button>
+                      )}
+                      <p className="text-xs text-muted-foreground/70">
+                        {formatDate(tribute.created_at)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-12">

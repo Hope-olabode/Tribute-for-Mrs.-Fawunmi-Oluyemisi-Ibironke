@@ -1,31 +1,32 @@
 import Layout from "@/components/Layout";
 import { GraduationCap, MapPin, Heart, Award } from "lucide-react";
+import p from "../images/portrait.jpeg";
 
 const About = () => {
   const timeline = [
     {
       period: "Early Life",
-      years: "[Birth Year] - [Year]",
+      years: "1967 - 1979",
       icon: Heart,
-      content: `[Placeholder: Describe the honoree's early life, childhood, family background, and the experiences that shaped who she would become. Include details about where she grew up, her family, and early influences that led her to education.]`,
+      content: `Oluyemisi Ibironke Kemiki was born on May 18, 1967, in Abeokuta, Ogun State, into a family rooted in heritage and dignity. She is the daughter of the late Chief Edward Adebola Durogbola Kemiki of Mobegelu Compound, Iporogun, Ijebu Ode, and Madam Celicia Durogbola Kemiki. Her formative years were shaped by a home that valued character and diligence. She began her scholastic journey at LadiLak Primary School from 1973 to 1979 — early years that would quietly nurture the educator she was destined to become.`,
     },
     {
       period: "Education & Training",
-      years: "[Years]",
+      years: "1979 - 1998",
       icon: GraduationCap,
-      content: `[Placeholder: Detail her educational journey—where she studied, degrees earned, certifications, and what inspired her passion for teaching. Include any mentors or pivotal moments during this time.]`,
+      content: `Mrs. Fawunmi's educational journey was one of steady and purposeful growth. She completed her secondary education at National College II, Gbagada (1979–1984), before following her calling into pedagogy at the Lagos State College of Education, Otto-Ijanikin, where she studied Accounting and Business Management (1986–1989). Never content to stop learning, she pursued a degree in Accounting Education at Ogun State University — now Olabisi Onabanjo University — between 1995 and 1998.`,
     },
     {
       period: "Teaching Career",
-      years: "[Start Year] - [End Year]",
+      years: "1991 - 2026",
       icon: Award,
-      content: `[Placeholder: Describe her teaching career in detail. What subjects did she teach? What grade levels? What was her teaching philosophy? Include memorable moments, achievements, and the impact she had on students and colleagues.]`,
+      content: `On March 11, 1991, Mrs. Fawunmi began her career with the Lagos State Teaching Service Commission — a journey that would span over three decades of transformative service. She taught Financial Accounting and Mathematics with distinction, earning a reputation for clarity, discipline, and genuine investment in her students' futures. Her career evolved from classroom teacher to Year Tutor, then Vice Principal, and ultimately Principal — a trajectory driven entirely by merit. She has served as a WAEC Team Leader for Financial Accounting examinations, a NECO examiner, and an active contributor to the Lagos State Financial Accounting Scheme of Work and textbook review committee, shaping how an entire generation of Lagos students learns accounting.`,
     },
     {
       period: "Communities Served",
-      years: "[Years of Service]",
+      years: "1991 - 2026",
       icon: MapPin,
-      content: `[Placeholder: List and describe the different schools and communities where she worked. How did she contribute to each? What unique challenges did she face and overcome? How did she adapt to different environments?]`,
+      content: `Over the course of her illustrious career, Mrs. Fawunmi has served with distinction across nine schools in Lagos State: Ebenezer Comprehensive High School, Government College, Vetland College (where she gave a remarkable decade of service), Ijaye-Ojokoro Senior High School, Ijaye-Ojokoro Senior College, Isefun Senior High School, Community Junior Grammar School Ipaja, Community Senior Grammar School, Abesan Comprehensive Junior College, and Orisunmbare Senior High School, Ayobo. Each posting brought new communities, new challenges, and new lives to impact — and in every one, she left things better than she found them.`,
     },
   ];
 
@@ -51,25 +52,23 @@ const About = () => {
             <div className="flex flex-col md:flex-row gap-8 items-start">
               {/* Photo Placeholder */}
               <div className="w-full md:w-1/3 flex-shrink-0">
-                <div className="aspect-[3/4] bg-muted rounded-lg flex items-center justify-center border-4 border-secondary/30">
-                  <div className="text-center p-4">
-                    <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-secondary/20 flex items-center justify-center">
-                      <Heart className="w-8 h-8 text-secondary" />
-                    </div>
-                    <p className="text-sm text-muted-foreground">Portrait Photo</p>
-                    <p className="text-xs text-muted-foreground/70">Replace with actual image</p>
-                  </div>
+                <div className="aspect-[3/4] rounded-lg border-4 border-secondary/30 overflow-hidden">
+                  <img
+                    src={p}
+                    alt="Mrs. Fawunmi Oluyemisi Ibironke"
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
               </div>
 
               {/* Bio Text */}
               <div className="flex-1 space-y-4">
-                <h2 className="font-serif text-3xl text-foreground">[Honoree Name]</h2>
+                <h2 className="font-serif text-3xl text-foreground">Mrs. Fawunmi Oluyemisi Ibironke</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  [Placeholder: Write a compelling introduction about the honoree. Who was she at her core? What made her special? What drove her passion for teaching? This should be a warm, personal overview that captures her essence.]
+                  Mrs. Fawunmi Oluyemisi Ibironke is a woman whose life has been a masterclass in purpose-driven service. Born with an innate vocation for teaching, she transformed every classroom she entered into a space of possibility — not merely instructing students in Financial Accounts and Business Management, but shaping the very character of a generation. For over three decades, her name has been synonymous with dedication, integrity, and academic excellence across the Lagos State public school system.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  [Placeholder: Continue with more details about her character, values, and the lasting impression she left on everyone who knew her. Include personal anecdotes if available.]
+                  Those who have had the privilege of working alongside Mrs. Fawunmi speak of a woman of quiet strength and extraordinary resolve — one who rose steadily through the ranks not through shortcuts, but through sheer merit and consistent excellence. From her early days as a classroom teacher at Ebenezer Comprehensive High School to her elevation as Principal, she has carried herself with the same grace and commitment at every level. A devoted wife, a loving mother and grandmother, a faithful churchwoman, and a respected professional leader, Mrs. Fawunmi does not merely occupy roles — she enriches them. Her story is not just one of career milestones; it is a testimony to what happens when passion meets perseverance.
                 </p>
               </div>
             </div>
@@ -119,16 +118,16 @@ const About = () => {
               Legacy & Impact
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              [Placeholder: Describe the lasting impact she had on education, her students, and the community. What is her legacy? How do people remember her? What values and lessons did she instill in others that continue to live on?]
+              Mrs. Oluyemisi Fawunmi's legacy is written not in monuments, but in the lives she has shaped across more than three decades of faithful service. Thousands of students who passed through her classrooms carry with them not just a knowledge of Financial Accounting, but the imprint of a teacher who believed in standards, in excellence, and in the dignity of hard work. Her influence extends far beyond any single school — through her work on the Lagos State Financial Accounting curriculum and her role as a WAEC Team Leader and NECO examiner, she has quietly helped define the quality of education delivered to an entire generation of Nigerian students. Colleagues remember her as a leader who led by example, an administrator who never lost the heart of a teacher, and a woman whose faith and integrity were as steady in the staffroom as they were in the sanctuary. In every role she occupied — teacher, year tutor, vice principal, principal — she raised the bar and then helped others reach it. That is a legacy that does not retire.
             </p>
 
             {/* Quote */}
             <div className="bg-primary text-primary-foreground rounded-xl p-8 mt-8">
               <div className="text-4xl text-secondary mb-4">"</div>
               <blockquote className="font-serif text-xl md:text-2xl italic mb-4">
-                [Placeholder: Add a meaningful quote from the honoree, or a quote from a student/colleague about her]
+                Teaching is not just a profession — it is a calling. And I have answered it every single day.
               </blockquote>
-              <p className="text-primary-foreground/70">— [Attribution]</p>
+              <p className="text-primary-foreground/70">— Mrs. Fawunmi Oluyemisi Ibironke, Director/Principal, Lagos State Teaching Service Commission</p>
             </div>
           </div>
         </div>

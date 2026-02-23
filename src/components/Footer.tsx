@@ -31,10 +31,7 @@ const Footer = () => {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-1 text-sm text-primary-foreground/70">
-            <span>Made with</span>
-            <Heart className="h-4 w-4 text-secondary fill-secondary" />
-          </div>
+          
         </div>
       </div>
     </footer>

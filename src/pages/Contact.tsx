@@ -34,7 +34,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <p className="text-muted-foreground">[email@placeholder.com]</p>
+                      <p className="text-muted-foreground">joyfawunmi2003@gmail.com/</p>
+                      <p className="text-muted-foreground">oluyemisi067@gmail.com</p>
                       <p className="text-sm text-muted-foreground/70 mt-1">
                         For general inquiries and submissions
                       </p>
@@ -49,10 +50,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                      <p className="text-muted-foreground">[(XXX) XXX-XXXX]</p>
-                      <p className="text-sm text-muted-foreground/70 mt-1">
-                        Available during regular hours
-                      </p>
+                      <p className="text-muted-foreground">09035848276 / 08066903125</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -64,10 +62,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Location</h3>
-                      <p className="text-muted-foreground">[City, State]</p>
-                      <p className="text-sm text-muted-foreground/70 mt-1">
-                        The community she called home
-                      </p>
+                      <p className="text-muted-foreground">Lagos, Nigeria</p>
                     </div>
                   </CardContent>
                 </Card>

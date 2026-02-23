@@ -2,10 +2,28 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, X, Camera } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import e1 from "../images/Early Years/WhatsApp Image 2026-02-23 at 20.48.00.jpeg"
+import e2 from "../images/Early Years/WhatsApp Image 2026-02-23 at 20.48.13 (1).jpeg"
+import t1 from "../images/Teaching/WhatsApp Image 2026-02-23 at 20.48.04.jpeg"
+import t2 from "../images/Teaching/WhatsApp Image 2026-02-23 at 20.48.10.jpeg"
+import t3 from "../images/Teaching/WhatsApp Image 2026-02-23 at 20.48.13.jpeg"
+import f1 from "../images/Family/WhatsApp Image 2026-02-23 at 20.47.58.jpeg"
+import f2 from "../images/Family/WhatsApp Image 2026-02-23 at 20.47.59 (1).jpeg"
+import f3 from "../images/Family/WhatsApp Image 2026-02-23 at 20.47.59 (2).jpeg"
+import f4 from "../images/Family/WhatsApp Image 2026-02-23 at 20.47.59.jpeg"
+import f5 from "../images/Family/WhatsApp Image 2026-02-23 at 20.48.01.jpeg"
+import f6 from "../images/Family/WhatsApp Image 2026-02-23 at 20.48.17.jpeg"
+import f7 from "../images/Family/WhatsApp Image 2026-02-23 at 20.48.18 (2).jpeg"
+import f8 from "../images/Family/WhatsApp Image 2026-02-23 at 20.48.18 (3).jpeg"
+import s1 from "../images/Special Moments/WhatsApp Image 2026-02-23 at 20.48.05.jpeg"
+import s2 from "../images/Special Moments/WhatsApp Image 2026-02-23 at 20.48.12.jpeg"
+import s3 from "../images/Special Moments/WhatsApp Image 2026-02-23 at 20.48.18 (1).jpeg"
+import s4 from "../images/Special Moments/WhatsApp Image 2026-02-23 at 20.48.18.jpeg"
 
 interface Photo {
   id: number;
+  src: string;
   category: string;
   caption: string;
   year?: string;
@@ -17,38 +35,40 @@ const Gallery = () => {
 
   const categories = ["All", "Early Years", "Teaching", "Family", "Retirement", "Special Moments"];
 
-  // Placeholder photos - replace with actual images
   const photos: Photo[] = [
-    { id: 1, category: "Early Years", caption: "Childhood photo placeholder", year: "1950s" },
-    { id: 2, category: "Early Years", caption: "Young adult years placeholder", year: "1960s" },
-    { id: 3, category: "Teaching", caption: "First classroom placeholder", year: "1970s" },
-    { id: 4, category: "Teaching", caption: "With students placeholder", year: "1980s" },
-    { id: 5, category: "Teaching", caption: "School event placeholder", year: "1985" },
-    { id: 6, category: "Teaching", caption: "Award ceremony placeholder", year: "1990" },
-    { id: 7, category: "Family", caption: "Family gathering placeholder", year: "1995" },
-    { id: 8, category: "Family", caption: "Holiday celebration placeholder", year: "2000" },
-    { id: 9, category: "Teaching", caption: "Classroom activities placeholder", year: "2005" },
-    { id: 10, category: "Retirement", caption: "Retirement celebration placeholder", year: "2015" },
-    { id: 11, category: "Special Moments", caption: "Community recognition placeholder", year: "2018" },
-    { id: 12, category: "Special Moments", caption: "Recent celebration placeholder", year: "2023" },
+    { id: 1,  src: e1,  category: "Early Years",     caption: "",                       year: "" },
+    { id: 2,  src: e2,  category: "Early Years",     caption: "",                        year: "" },
+    { id: 3,  src: t1,  category: "Teaching",        caption: "",              year:"" },
+    { id: 4,  src: t2,  category: "Teaching",        caption: "",          year: "" },
+    { id: 5,  src: t3,  category: "Teaching",        caption: "",        year: "" },
+    { id: 6,  src: f1,  category: "Family",          caption: "",                         year: "" },
+    { id: 7,  src: f2,  category: "Family",          caption: "",        year: "" },
+    { id: 8,  src: f3,  category: "Family",          caption: "",                       year: "" },
+    { id: 9,  src: f4,  category: "Family",          caption: "",                       year: "" },
+    { id: 10, src: f5,  category: "Family",          caption: "",                       year: "" },
+    { id: 11, src: f6,  category: "Family",          caption: "",                       year: "" },
+    { id: 12, src: f7,  category: "Family",          caption: "",                       year: "" },
+    { id: 13, src: f8,  category: "Family",          caption: "",                       year: "" },
+    { id: 14, src: s1, category: "Special Moments",      caption: "",                   year: "" },
+    { id: 15, src: s2, category: "Special Moments", caption: "",                   year: "" },
+    { id: 16, src: s3, category: "Special Moments", caption: "",  year: "" },
+    { id: 17, src: s4, category: "Special Moments", caption: "",  year: "" },
   ];
 
-  const filteredPhotos = activeCategory === "All" 
-    ? photos 
+  const filteredPhotos = activeCategory === "All"
+    ? photos
     : photos.filter(p => p.category === activeCategory);
 
-  const currentIndex = selectedPhoto ? filteredPhotos.findIndex(p => p.id === selectedPhoto.id) : -1;
+  const currentIndex = selectedPhoto
+    ? filteredPhotos.findIndex(p => p.id === selectedPhoto.id)
+    : -1;
 
   const goToPrevious = () => {
-    if (currentIndex > 0) {
-      setSelectedPhoto(filteredPhotos[currentIndex - 1]);
-    }
+    if (currentIndex > 0) setSelectedPhoto(filteredPhotos[currentIndex - 1]);
   };
 
   const goToNext = () => {
-    if (currentIndex < filteredPhotos.length - 1) {
-      setSelectedPhoto(filteredPhotos[currentIndex + 1]);
-    }
+    if (currentIndex < filteredPhotos.length - 1) setSelectedPhoto(filteredPhotos[currentIndex + 1]);
   };
 
   return (
@@ -76,8 +96,8 @@ const Gallery = () => {
                 variant={activeCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveCategory(category)}
-                className={activeCategory === category 
-                  ? "bg-primary text-primary-foreground" 
+                className={activeCategory === category
+                  ? "bg-primary text-primary-foreground"
                   : "hover:bg-secondary/20 hover:border-secondary"
                 }
               >
@@ -98,18 +118,15 @@ const Gallery = () => {
                 onClick={() => setSelectedPhoto(photo)}
                 className="group relative aspect-square bg-muted rounded-lg overflow-hidden hover:ring-2 hover:ring-secondary transition-all"
               >
-                {/* Placeholder Image */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
-                  <Camera className="w-8 h-8 text-muted-foreground/50 mb-2" />
-                  <p className="text-xs text-muted-foreground text-center">{photo.caption}</p>
-                  {photo.year && (
-                    <p className="text-xs text-secondary mt-1">{photo.year}</p>
-                  )}
-                </div>
-
+                <img
+                  src={photo.src}
+                  alt={photo.caption}
+                  className="w-full h-full object-cover"
+                />
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="text-primary-foreground text-sm font-medium">View Photo</span>
+                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3">
+                  <span className="text-primary-foreground text-sm font-medium text-center">{photo.caption}</span>
+                  {photo.year && <span className="text-secondary text-xs mt-1">{photo.year}</span>}
                 </div>
               </button>
             ))}
@@ -138,7 +155,7 @@ const Gallery = () => {
               <X className="h-6 w-6" />
             </Button>
 
-            {/* Navigation */}
+            {/* Left Navigation */}
             {currentIndex > 0 && (
               <Button
                 variant="ghost"
@@ -150,6 +167,7 @@ const Gallery = () => {
               </Button>
             )}
 
+            {/* Right Navigation */}
             {currentIndex < filteredPhotos.length - 1 && (
               <Button
                 variant="ghost"
@@ -161,18 +179,15 @@ const Gallery = () => {
               </Button>
             )}
 
-            {/* Image Placeholder */}
-            <div className="aspect-[4/3] flex flex-col items-center justify-center p-8">
-              <Camera className="w-16 h-16 text-secondary mb-4" />
-              <p className="text-primary-foreground text-lg text-center">
-                {selectedPhoto?.caption}
-              </p>
-              {selectedPhoto?.year && (
-                <p className="text-secondary mt-2">{selectedPhoto.year}</p>
+            {/* Expanded Image */}
+            <div className="aspect-[4/3] overflow-hidden">
+              {selectedPhoto && (
+                <img
+                  src={selectedPhoto.src}
+                  alt={selectedPhoto.caption}
+                  className="w-full h-full object-cover"
+                />
               )}
-              <p className="text-primary-foreground/60 text-sm mt-4">
-                Replace this placeholder with actual photo
-              </p>
             </div>
 
             {/* Caption Bar */}
@@ -191,7 +206,7 @@ const Gallery = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-2xl text-foreground mb-4">Have Photos to Share?</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            We welcome contributions to this photo collection. If you have pictures from any period 
+            We welcome contributions to this photo collection. If you have pictures from any period
             of her life that you'd like to share, please reach out through our contact page.
           </p>
         </div>
